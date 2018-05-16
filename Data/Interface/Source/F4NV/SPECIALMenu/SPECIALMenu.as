@@ -18,55 +18,53 @@ package
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFieldType;
 	import flash.ui.Keyboard;
-	
+
 	public class SPECIALMenu extends IMenu
 	{
-		 
-		
 		public var List_mc:BSScrollingList;
-		
+
 		public var PointCounter_tf:TextField;
-		
+
 		public var Description_tf:TextField;
-		
+
 		public var NameEntry_tf:TextField;
-		
+
 		public var Caption_tf:TextField;
-		
+
 		public var ButtonHintBar_mc:BSButtonHintBar;
-		
+
 		public var Background_mc:MovieClip;
-		
+
 		public var BackgroundBrackets_mc:MovieClip;
-		
+
 		public var VBHolder_mc:MovieClip;
-		
+
 		private var _VBLoader:Loader;
-		
+
 		protected var ExitButton:BSButtonHintData;
-		
+
 		protected var ResetButton:BSButtonHintData;
-		
+
 		private const SPECIALClipNameMap:Array = ["Name_Clip","Strength","Perception","Endurance","Charisma","Intelligence","Agility","Luck"];
-		
+
 		private const SPECIALClipSoundMap:Array = ["UIPerkMenuChargenName","UIPerkMenuChargenStrengthTraining","UIPerkMenuChargenPerceptionTraining","UIPerkMenuChargenEnduranceTraining","UIPerkMenuChargenCharismaTraining","UIPerkMenuChargenIntelligenceTraining","UIPerkMenuChargenAgilityTraining","UIPerkMenuChargenLuckTraining"];
-		
+
 		public var BGSCodeObj:Object;
-		
+
 		private var InputText:TextField;
-		
+
 		private var InputTextBaseX:Number;
-		
+
 		private var InputTextSpaceWidth:Number;
-		
+
 		private var initialValues:Array;
-		
+
 		private var uiCurrPoints:uint;
-		
+
 		private var uiMaxPoints:uint;
-		
+
 		private var uiCaptionBufferX:uint = 10;
-		
+
 		public function SPECIALMenu()
 		{
 			this.ExitButton = new BSButtonHintData("$ACCEPT","R","PSN_X","Xenon_X",1,this.onExitButtonClicked);
@@ -91,12 +89,12 @@ package
 			addEventListener(ArrowButton.MOUSE_UP,this.onArrowClick);
 			this.__setProp_List_mc_MenuObj_List_mc_0();
 		}
-		
+
 		public function get editingName() : Boolean
 		{
 			return stage.focus == this.InputText;
 		}
-		
+
 		private function PopulateButtonBar() : void
 		{
 			var _loc1_:Vector.<BSButtonHintData> = new Vector.<BSButtonHintData>();
@@ -104,12 +102,12 @@ package
 			_loc1_.push(this.ExitButton);
 			this.ButtonHintBar_mc.SetButtonHintData(_loc1_);
 		}
-		
+
 		public function get pointsRemaining() : int
 		{
 			return this.uiMaxPoints - this.uiCurrPoints;
 		}
-		
+
 		public function get isDirty() : Boolean
 		{
 			var _loc1_:Boolean = false;
@@ -124,14 +122,14 @@ package
 			}
 			return _loc1_;
 		}
-		
+
 		private function TrimString(param1:*) : String
 		{
 			var _loc2_:String = param1.replace(/^\s+|\s+$/g,"");
 			_loc2_ = _loc2_.replace(/[<]+/g,"");
 			return _loc2_;
 		}
-		
+
 		public function onTextChangeListener(param1:Event) : *
 		{
 			var _loc3_:* = undefined;
@@ -152,7 +150,7 @@ package
 			}
 			this.InputText.x = this.InputTextBaseX - this.InputTextSpaceWidth * _loc2_;
 		}
-		
+
 		public function onCodeObjCreate() : *
 		{
 			var _loc2_:String = null;
@@ -176,7 +174,7 @@ package
 			this.InputText.text = _loc2_;
 			this.InputText.addEventListener(Event.CHANGE,this.onTextChangeListener,false,0,true);
 		}
-		
+
 		private function onItemPress(param1:Event) : *
 		{
 			if(this.List_mc.selectedIndex == 0)
@@ -194,7 +192,7 @@ package
 				}
 			}
 		}
-		
+
 		private function StartEditText() : *
 		{
 			var _loc1_:String = null;
@@ -207,7 +205,7 @@ package
 			stage.focus = this.InputText;
 			this.InputText.setSelection(0,this.InputText.text.length);
 		}
-		
+
 		private function EndEditText(param1:Boolean = false) : *
 		{
 			this.InputText.type = TextFieldType.DYNAMIC;
@@ -229,7 +227,7 @@ package
 			this.UpdateCounterAndButtons();
 			this.BGSCodeObj.playSound("UIMenuOK");
 		}
-		
+
 		public function onMenuKeyUp(param1:KeyboardEvent) : *
 		{
 			if(this.List_mc.selectedIndex == 0 && (uiPlatform == PlatformChangeEvent.PLATFORM_PC_KB_MOUSE || uiPlatform == PlatformChangeEvent.PLATFORM_PC_GAMEPAD))
@@ -240,7 +238,7 @@ package
 				}
 			}
 		}
-		
+
 		public function onMenuKeyDown(param1:KeyboardEvent) : *
 		{
 			if(this.List_mc.selectedIndex != 0)
@@ -255,7 +253,7 @@ package
 				}
 			}
 		}
-		
+
 		private function ModListEntryValue(param1:int, param2:int, param3:Boolean) : *
 		{
 			if(param2 < 0 && this.uiCurrPoints > 0 && this.List_mc.entryList[param1].value > 1 || param2 > 0 && this.uiCurrPoints < this.uiMaxPoints && this.List_mc.entryList[param1].value < 10)
@@ -270,12 +268,12 @@ package
 				}
 			}
 		}
-		
+
 		private function ModSelectedValue(param1:int) : *
 		{
 			this.ModListEntryValue(this.List_mc.selectedClipIndex,param1,true);
 		}
-		
+
 		private function onArrowClick(param1:Event) : *
 		{
 			if(param1.target.name == "DecrementArrow")
@@ -287,7 +285,7 @@ package
 				this.ModSelectedValue(1);
 			}
 		}
-		
+
 		private function onResetButtonClicked() : void
 		{
 			if(this.BGSCodeObj)
@@ -296,7 +294,7 @@ package
 				this.BGSCodeObj.playSound("UIMenuPopupGeneric");
 			}
 		}
-		
+
 		private function onExitButtonClicked() : void
 		{
 			if(this.BGSCodeObj)
@@ -305,7 +303,7 @@ package
 				this.BGSCodeObj.playSound("UIMenuOK");
 			}
 		}
-		
+
 		public function onVirtualKeyboardResult(param1:String, param2:Boolean) : *
 		{
 			if(param2)
@@ -315,7 +313,7 @@ package
 			}
 			this.EndEditText(param2);
 		}
-		
+
 		public function CancelVirtualKeyboardNameEdit(param1:String) : *
 		{
 			var executeDelayed:* = undefined;
@@ -329,7 +327,7 @@ package
 			};
 			addEventListener(Event.ENTER_FRAME,executeDelayed);
 		}
-		
+
 		protected function UpdateCounterAndButtons() : *
 		{
 			var _loc1_:* = undefined;
@@ -347,7 +345,7 @@ package
 			_loc2_ = this.TrimString(this.List_mc.entryList[0].text);
 			this.ExitButton.ButtonEnabled = this.uiCurrPoints == this.uiMaxPoints && _loc2_.length > 0;
 		}
-		
+
 		private function onSelectionChange(param1:Event) : *
 		{
 			var _loc2_:URLRequest = null;
@@ -370,7 +368,7 @@ package
 			}
 			this.BGSCodeObj.playSound("UIMenuFocus");
 		}
-		
+
 		private function onPerkAnimUpdate(param1:Event) : *
 		{
 			if(this.List_mc.selectedIndex >= 0 && param1.target.currentFrame == 1)
@@ -378,7 +376,7 @@ package
 				this.BGSCodeObj.PlayPerkSound(this.SPECIALClipSoundMap[this.List_mc.selectedIndex]);
 			}
 		}
-		
+
 		private function onVBLoadComplete(param1:Event) : *
 		{
 			var _loc2_:DisplayObject = null;
@@ -394,7 +392,7 @@ package
 			param1.target.content.addEventListener(Event.ENTER_FRAME,this.onPerkAnimUpdate);
 			this.BGSCodeObj.PlayPerkSound(this.SPECIALClipSoundMap[this.List_mc.selectedIndex]);
 		}
-		
+
 		public function ResetPoints() : *
 		{
 			var _loc1_:* = undefined;
@@ -411,12 +409,12 @@ package
 			this.List_mc.InvalidateData();
 			this.UpdateCounterAndButtons();
 		}
-		
+
 		public function CancelReset() : *
 		{
 			this.BGSCodeObj.playSound("UIMenuCancel");
 		}
-		
+
 		public function IncrementPoints() : *
 		{
 			if(this.List_mc.selectedClipIndex > 0)
@@ -424,7 +422,7 @@ package
 				this.ModSelectedValue(1);
 			}
 		}
-		
+
 		public function DecrementPoints() : *
 		{
 			if(this.List_mc.selectedClipIndex > 0)
@@ -432,7 +430,7 @@ package
 				this.ModSelectedValue(-1);
 			}
 		}
-		
+
 		function __setProp_List_mc_MenuObj_List_mc_0() : *
 		{
 			try
