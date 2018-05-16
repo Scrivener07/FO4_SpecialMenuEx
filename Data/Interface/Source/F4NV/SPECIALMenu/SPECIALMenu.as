@@ -60,8 +60,18 @@ package
 		private var initialValues:Array;
 
 		private var uiCurrPoints:uint;
+		// public function get CurrentPoints():uint { return this.uiCurrPoints; }
+		// public function set CurrentPoints(value: uint):void { this.uiCurrPoints = value; }
 
 		private var uiMaxPoints:uint;
+		public function get MaximumPoints():uint { return this.uiMaxPoints; }
+		public function set MaximumPoints(value: uint):void
+		{
+			this.uiMaxPoints = value;
+			this.PointCounter_tf.text = String(value);
+			trace("uiMaxPoints has been set to "+this.uiMaxPoints);
+		}
+
 
 		private var uiCaptionBufferX:uint = 10;
 
