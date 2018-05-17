@@ -6,3 +6,4 @@
 ### SPECIALMenu.swf
 - **Steam:** 2649463
 - **Runtime:** 1.10.82.0
+- **Decompiler:** [JPEXS FFDec v11.0.0](https://github.com/jindrapetrik/jpexs-decompiler/releases/tag/version11.0.0)
